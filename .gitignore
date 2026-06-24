@@ -1,6 +1,12 @@
 # Manim 出力
-media/
-videos/
+# 原則すべて無視するが、各シーンの「完成版 mp4」だけは追跡する。
+# （git は親ディレクトリが除外されたままだと中のファイルを再包含できないため、
+#  ディレクトリ走査を許可 → *.mp4 を再包含 → 断片(partial)を再除外、の順で書く）
+media/**
+!media/videos/
+!media/videos/**/
+!media/videos/**/*.mp4
+media/videos/**/partial_movie_files/**
 images/
 __pycache__/
 *.pyc
