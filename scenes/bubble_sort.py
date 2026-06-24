@@ -103,12 +103,17 @@ class BubbleSortScene(Scene):
                 bars[idx].set_color(BLUE)
 
     def _swap_bars(self, bars: VGroup, a: int, b: int) -> None:
-        """バー a と b を、見た目の位置ごと入れ替える。"""
-        pos_a = bars[a].get_center()
-        pos_b = bars[b].get_center()
+        """バー a と b を、見た目の位置ごと入れ替える。
+
+        高さが異なるバー同士なので、中心ごと動かすと下端（ベースライン）が
+        ズレてしまう。バーは底辺を揃えて並べてあるため、入れ替えるのは
+        横位置 (x) だけにして、各バーの下端は固定したままにする。
+        """
+        x_a = bars[a].get_x()
+        x_b = bars[b].get_x()
         self.play(
-            bars[a].animate.set_color(RED).move_to(pos_b),
-            bars[b].animate.set_color(RED).move_to(pos_a),
+            bars[a].animate.set_color(RED).set_x(x_b),
+            bars[b].animate.set_color(RED).set_x(x_a),
             run_time=0.5,
         )
         # VGroup 内のインデックスと描画順を実データと一致させる
